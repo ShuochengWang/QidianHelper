@@ -3,8 +3,9 @@
     android:description="@string/accessibility_service_description"
     android:packageNames="com.qidian.QDReader"
     android:accessibilityEventTypes="typeAllMask"
-    android:accessibilityFlags="flagDefault"
+    android:accessibilityFlags="flagDefault|flagRetrieveInteractiveWindows|flagIncludeNotImportantViews"
     android:accessibilityFeedbackType="feedbackAllMask"
     android:notificationTimeout="100"
     android:canRetrieveWindowContent="true"
+    android:canPerformGestures="true"
     />
