@@ -1,12 +1,15 @@
 package com.example.qidianhelper
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.example.qidianhelper.databinding.ActivityScrollingBinding
 
 class ScrollingActivity : AppCompatActivity() {
@@ -22,25 +25,19 @@ class ScrollingActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
         binding.toolbarLayout.title = title
         binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            openAccessibility(view)
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_scrolling, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+    fun openAccessibility(view: View?) {
+        try {
+            val accessibleIntent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+            startActivity(accessibleIntent)
+        } catch (e: Exception) {
+            view?.let {
+                Snackbar.make(view, "跳转失败，请前往系统设置>无障碍服务>起点助手", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+            }
         }
     }
 }
